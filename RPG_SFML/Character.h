@@ -5,7 +5,7 @@
 class Character : public Pawn
 {
 public:
-	void CharacterTest() { std::cout << "EE"; }
+	void CharacterTest() { std::cout << "EEEE"; }
 	virtual void Draw() override;
 	Character(PawnController* controller, float rotation, Vector2D<> position);
 	~Character();
