@@ -11,6 +11,7 @@ using namespace std;
 
 int main()
 {
+	cout << "EEE";
 	auto &game = Game::Instance();
 	auto &texture_manager = TextureManager::Instance();
 
