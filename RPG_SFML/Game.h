@@ -1,10 +1,9 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Game_Status.h"
 #include "Level.h"
 #include "MultiTool.h"
-
-#pragma once
 
 class Game final
 {
