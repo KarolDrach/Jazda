@@ -13,8 +13,14 @@ void ItemInstanceOnMap::Draw()
 ItemInstanceOnMap::ItemInstanceOnMap(ItemTemplate* item, PawnController* controller, Vector2D<> position):
 	Pawn(controller, 0.0, position)
 {
+	can_be_picked_up = true;
 	this->item = item;
 	SetOutfit(item->GetOutfitID());
+}
+
+ItemInstanceOnMap::ItemInstanceOnMap(Actor * actor)
+{
+//
 }
 
 

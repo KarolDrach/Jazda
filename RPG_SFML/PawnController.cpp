@@ -1,14 +1,14 @@
 #include "PawnController.h"
 
-bool PawnController::Possess(Pawn* controlled_pawn)
-{
-	if (!this->controlled_pawn)
-	{
-		this->controlled_pawn = controlled_pawn;
-		return true;
-	}
-	return false;
-}
+//bool PawnController::Possess(Pawn* controlled_pawn)
+//{
+//	if (!this->controlled_pawn)
+//	{
+//		this->controlled_pawn = controlled_pawn;
+//		return true;
+//	}
+//	return false;
+//}
 
 PawnController::PawnController()
 {

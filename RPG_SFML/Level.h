@@ -9,6 +9,10 @@ class Level
 public:
 	std::vector<Actor*>& GetAllActors() { return all_actors; }
 	std::vector<Actor*> GetActorsInDistanceFromPoint(Vector2D<> point, float distance);
+	std::vector<Actor*> GetActorsInDistanceFromActor(Actor* actor, float distance);
+	Actor* GetClosestActorToPoint(Vector2D<> point);
+	Actor* GetClosestActorToActor(Actor* actor);
+
 	void AddActor(Actor* actor);
 	void RemoveActor(Actor* actor);
 	bool Exist(Actor* actor) const;

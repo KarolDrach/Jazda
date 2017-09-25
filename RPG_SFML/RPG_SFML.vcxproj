@@ -160,7 +160,9 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterController.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemController.cpp" />
+    <ClCompile Include="ItemInstanceInInv.cpp" />
     <ClCompile Include="ItemInstanceOnMap.cpp" />
     <ClCompile Include="ItemsManager.cpp" />
     <ClCompile Include="ItemTemplate.cpp" />
@@ -183,7 +185,9 @@
     <ClInclude Include="CharacterController.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Game_Status.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemController.h" />
+    <ClInclude Include="ItemInstanceInInv.h" />
     <ClInclude Include="ItemInstanceOnMap.h" />
     <ClInclude Include="ItemsManager.h" />
     <ClInclude Include="ItemTemplate.h" />

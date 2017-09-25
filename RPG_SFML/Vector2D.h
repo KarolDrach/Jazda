@@ -14,14 +14,14 @@ public:
 	inline void SetFirst(Type value) { first = value; }
 	inline void SetSecond(Type value) { second = value; }
 	inline void Add(Vector2D<Type> &added);
-	inline void MultiplyByScalar(Type value);
+	inline void MultiplyByScalar(Type &value);
 	inline float CalculateLength() const ;
-	inline float CalculateDistance(Vector2D<Type> &other);
-	inline float CalculateAngleRad(Vector2D<Type> &other);
+	float CalculateDistance(Vector2D<Type> &other);
+	float CalculateAngleRad(Vector2D<Type> &other);
 	inline bool Compare(Vector2D<Type> &other) const;
-	inline Vector2D();
-	inline Vector2D(Type first, Type second);
-	inline ~Vector2D();
+	Vector2D();
+	Vector2D(Type first, Type second);
+	~Vector2D();
 };
 
 template<typename Type = DEFAULT_TYPE>
@@ -32,7 +32,7 @@ inline void Vector2D<Type>::Add(Vector2D<Type> &added)
 }
 
 template<typename Type = DEFAULT_TYPE>
-inline void Vector2D<Type>::MultiplyByScalar(Type value)
+inline void Vector2D<Type>::MultiplyByScalar(Type &value)
 {
 	this->first = this->first * value;
 	this->second = this->second * value;

@@ -4,6 +4,8 @@
 #include "CharacterController.h"
 #include "Character.h"
 #include "Projectile.h"
+#include "ItemInstanceInInv.h"
+#include "ItemInstanceOnMap.h"
 #include "ProjectileController.h"
 #include "Game.h"
 #include "Level.h"
@@ -12,11 +14,6 @@ using namespace std;
 
 void CharacterController::Update(float & frame_time)
 {
-	//controlled_pawn = static_cast<Character*>(controlled_pawn);
-	/*auto test = static_cast<Character*>(controlled_pawn);
-	auto controlled_pawn = 1.0;*/
-	//std::cout << PawnController::controlled_pawn->GetMovementSpeed();
-	controlled_pawn->GetMovementSpeed();
 	auto movement_speed = controlled_pawn->GetMovementSpeed();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
@@ -58,7 +55,24 @@ void CharacterController::Update(float & frame_time)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
 		auto point = controlled_pawn->GetPosition();
-		auto to_pick_up = Game::Instance().GetCurrentLevel().GetActorsInDistanceFromPoint(Vector2D<>(), 200.0);
+		auto to_pick_up = Game::Instance().GetCurrentLevel().GetClosestActorToActor(this->controlled_pawn);
+		if (to_pick_up)
+		{
+			to_pick_up = static_cast<Pawn*>(to_pick_up);
+
+			if (to_pick_up->CanBePickedUp())
+			{
+				controlled_pawn->GetInventory().AddItemToInventory(ItemInstanceInInv(to_pick_up));
+				Game::Instance().GetCurrentLevel().RemoveActor(to_pick_up);
+			}
+		}
+		
+		/*/ TO DO:
+			Inventory dla Character;
+			ItemInstanceInInventory - analogicznie do iteminstanceonmap
+			dodawanie itemku do Inventory; Inventory::AddToInventory(ItemInstanceInInventory)
+			konstruktor konwertujacy dla itemonmap -> itemininventory;
+		*/
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && controlled_pawn->reload <= 0.0)
 	{
@@ -75,6 +89,21 @@ void CharacterController::Update(float & frame_time)
 		Game::Instance().GetCurrentLevel().AddActor(new Projectile(new ProjectileController, rotation, Vector2D<>(x, y)));
 		controlled_pawn->reload = 0.05;
 	}
+}
+
+bool CharacterController::Possess(Pawn * controlled_pawn)
+{	
+	if (!this->controlled_pawn)
+	{
+		this->controlled_pawn = static_cast<Character*>(controlled_pawn);
+		return true;
+	}
+	return false;
+}
+
+inline bool CharacterController::IsPossesed()
+{
+	return controlled_pawn != nullptr;
 }
 
 CharacterController::CharacterController()

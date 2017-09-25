@@ -1,4 +1,5 @@
 #include "MobController.h"
+#include "Mob.h" 
 #include "Game.h"
 #include "Pawn.h"
 #include <memory>
@@ -9,7 +10,7 @@ void MobController::Update(float & frame_time)
 	auto &actors = Game::Instance().GetCurrentLevel().GetAllActors();
 	Actor* closest_actor = nullptr;
 	float min_distance = 99999.0;
-
+	
 	for (auto actor : actors)
 	{
 		if (actor != this->controlled_pawn)
@@ -35,6 +36,21 @@ void MobController::Update(float & frame_time)
 			controlled_pawn->Pawn::Move(Vector2D<>(x * frame_time, y * frame_time));
 		}
 	}
+}
+
+bool MobController::Possess(Pawn * controlled_pawn)
+{
+	if (!this->controlled_pawn)
+	{
+		this->controlled_pawn = static_cast<Mob*>(controlled_pawn);
+		return true;
+	}
+	return false;
+}
+
+inline bool MobController::IsPossesed()
+{
+	return controlled_pawn != nullptr;
 }
 
 MobController::MobController()

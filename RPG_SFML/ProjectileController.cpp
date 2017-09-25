@@ -1,4 +1,5 @@
 #include "ProjectileController.h"
+#include "Projectile.h"
 #include "Pawn.h"
 #include <cmath>
 
@@ -9,6 +10,21 @@ void ProjectileController::Update(float & frame_time)
 	auto y = sin(angle) * controlled_pawn->GetMovementSpeed();
 
 	controlled_pawn->Pawn::Move(Vector2D<>(x * frame_time, y * frame_time));
+}
+
+bool ProjectileController::Possess(Pawn * controlled_pawn)
+{
+	if (!this->controlled_pawn)
+	{
+		this->controlled_pawn = static_cast<Projectile*>(controlled_pawn);
+		return true;
+	}
+	return false;
+}
+
+inline bool ProjectileController::IsPossesed()
+{
+	return controlled_pawn != nullptr;
 }
 
 ProjectileController::ProjectileController()

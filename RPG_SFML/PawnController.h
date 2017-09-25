@@ -5,11 +5,11 @@ class Actor;
 class PawnController
 {
 protected:
-	Pawn* controlled_pawn;
+	//Pawn* controlled_pawn;
 public:
 	virtual void Update(float &frame_time) = 0;
-	inline bool IsPossesed() const { return controlled_pawn != nullptr; }
-	bool Possess(Pawn* controlled_pawn);
+	virtual inline bool IsPossesed() = 0;// const { return controlled_pawn != nullptr; }
+	virtual bool Possess(Pawn* controlled_pawn) = 0;
 	PawnController();
 	virtual ~PawnController();
 	friend class Pawn;

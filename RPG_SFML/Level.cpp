@@ -5,7 +5,7 @@
 std::vector<Actor*> Level::GetActorsInDistanceFromPoint(Vector2D<> point, float distance)
 {
 	std::vector<Actor*> result;
-	for (auto actor : all_actors)
+	for (auto& actor : all_actors)
 	{
 		if (actor->GetPosition().CalculateDistance(point) <= distance)
 		{
@@ -14,6 +14,52 @@ std::vector<Actor*> Level::GetActorsInDistanceFromPoint(Vector2D<> point, float 
 	}
 	
 	return result;
+}
+
+std::vector<Actor*> Level::GetActorsInDistanceFromActor(Actor * actor, float distance)
+{
+	std::vector<Actor*> result;
+	auto position = actor->GetPosition();
+
+	for (auto& a : all_actors)
+	{
+		if (a->GetPosition().CalculateDistance(position) <= distance && a != actor)
+		{
+			result.push_back(a);
+		}
+	}
+
+	return result;
+}
+
+Actor * Level::GetClosestActorToPoint(Vector2D<> point)
+{
+	auto min_dist = 9999999999.0;
+	Actor* closest;
+	for (auto& actor : all_actors)
+	{
+		if (actor->GetPosition().CalculateDistance(point) <= min_dist)
+		{
+			closest = actor;
+		}
+	}
+	return closest;
+}
+
+Actor * Level::GetClosestActorToActor(Actor * actor)
+{
+	auto min_dist = 9999999999.0;
+	auto position = actor->GetPosition();
+	Actor* closest = nullptr;
+
+	for (auto& a : all_actors)
+	{
+		if ((a->GetPosition().CalculateDistance(position) <= min_dist) && (actor != a))
+		{
+			closest = a;
+		}
+	}
+	return closest;
 }
 
 void Level::AddActor(Actor* actor)

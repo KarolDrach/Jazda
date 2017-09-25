@@ -7,9 +7,11 @@ class Actor
 protected:
 	float rotation;
 	Vector2D<> position;
+	bool can_be_picked_up;
 public:
 	Actor();
 	Actor(float rotation, Vector2D<> position);
+	inline bool CanBePickedUp() { return can_be_picked_up; }
 	inline virtual void SetPosition(Vector2D<> &position) { this->position = position; }
 	inline void SetRotation(float &value) { this->rotation = value; }
 	inline void Move(Vector2D<> &vector) { this->position.Add(vector); }
