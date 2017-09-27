@@ -66,13 +66,6 @@ void CharacterController::Update(float & frame_time)
 				Game::Instance().GetCurrentLevel().RemoveActor(to_pick_up);
 			}
 		}
-		
-		/*/ TO DO:
-			Inventory dla Character;
-			ItemInstanceInInventory - analogicznie do iteminstanceonmap
-			dodawanie itemku do Inventory; Inventory::AddToInventory(ItemInstanceInInventory)
-			konstruktor konwertujacy dla itemonmap -> itemininventory;
-		*/
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && controlled_pawn->reload <= 0.0)
 	{

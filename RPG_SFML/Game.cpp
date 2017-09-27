@@ -50,7 +50,7 @@ void Game::GameLoop()
 	//current_level.AddActor(test);
 
 	UI& ui = UI::Instance();
-
+	ui.SetCharacter(test2);
 	while (main_status != TO_CLOSE)
 	{
 		float start_time = GameClock.getElapsedTime().asSeconds();
