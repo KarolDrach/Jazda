@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <unordered_map>
 #include <string>
 
@@ -8,7 +9,7 @@ class ItemsManager final
 {
 private:
 	ItemsManager();
-	std::unordered_map<std::string, ItemTemplate*> item_pack;
+	std::unordered_map<std::string, std::shared_ptr<ItemTemplate>> item_pack;
 
 public:
 	/*K. kopiujacy i operator przypisania skasowane.*/
@@ -23,7 +24,7 @@ public:
 	}
 
 	static void LoadItemsFromFile(std::string & path);
-	static ItemTemplate* GetItem(std::string &name);
+	static std::shared_ptr<ItemTemplate> GetItem(std::string &name);
 	static bool Delete(std::string &name);
 };
 

@@ -10,7 +10,9 @@ void ItemInstanceOnMap::Draw()
 	Game::Instance().GetMainWindow().draw(outfit);
 }
 
-ItemInstanceOnMap::ItemInstanceOnMap(ItemTemplate* item, PawnController* controller, Vector2D<> position):
+ItemInstanceOnMap::ItemInstanceOnMap(std::shared_ptr<ItemTemplate> item, 
+									 std::shared_ptr<PawnController> controller, 
+									 Vector2D<> position) :
 	Pawn(controller, 0.0, position)
 {
 	can_be_picked_up = true;
@@ -18,7 +20,7 @@ ItemInstanceOnMap::ItemInstanceOnMap(ItemTemplate* item, PawnController* control
 	SetOutfit(item->GetOutfitID());
 }
 
-ItemInstanceOnMap::ItemInstanceOnMap(Actor * actor)
+ItemInstanceOnMap::ItemInstanceOnMap(std::shared_ptr<Actor> actor)
 {
 //
 }

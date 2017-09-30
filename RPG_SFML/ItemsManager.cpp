@@ -1,8 +1,5 @@
 #include <fstream>
-#include <string>
 #include <iostream>
-#include <unordered_map>
-#include <variant>
 #include "ItemsManager.h"
 #include "MultiTool.h"
 #include "ItemTemplate.h"
@@ -33,7 +30,7 @@ void ItemsManager::LoadItemsFromFile(std::string & path)
 					}			
 				}
 
-				instance.item_pack[name] = new ItemTemplate(bonuses, outfit_ID, name, description);
+				instance.item_pack[name] = std::make_shared<ItemTemplate>(bonuses, outfit_ID, name, description);
 				bonuses = {};
 				description = "";
 				outfit_ID = "";
@@ -55,15 +52,15 @@ void ItemsManager::LoadItemsFromFile(std::string & path)
 	}
 }
 
-ItemTemplate* ItemsManager::GetItem(std::string & name)
+std::shared_ptr<ItemTemplate> ItemsManager::GetItem(std::string & name)
 {
 	auto &instance = Instance();
 	auto itemIt = instance.item_pack.find(name);
 
 	if (itemIt == instance.item_pack.end())
-		return &ItemTemplate();
+		return std::make_shared<ItemTemplate>();
 
-	return itemIt->second;
+	return std::make_shared<ItemTemplate>(*(itemIt->second));
 }
 
 bool ItemsManager::Delete(std::string & name)

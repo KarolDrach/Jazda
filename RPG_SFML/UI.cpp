@@ -10,7 +10,10 @@
 void UI::Update(float & frame_time, sf::RenderWindow& main_window, sf::View & previous_view)
 {
 	main_window.setView(interface_view);
-
+	for (auto& el : UIElements)
+	{
+		el->Update(frame_time, main_window);
+	}
 	main_window.setView(previous_view);
 }
 

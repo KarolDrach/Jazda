@@ -6,7 +6,7 @@ void Projectile::Draw()
 	Game::Instance().GetMainWindow().draw(outfit);
 }
 
-Projectile::Projectile(PawnController* controller, float rotation, Vector2D<>position):
+Projectile::Projectile(std::shared_ptr<PawnController> controller, float rotation, Vector2D<>position):
 	Pawn(controller, rotation, position)
 {
 	Pawn::SetOutfit(std::string("FIREBALL"));

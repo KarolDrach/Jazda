@@ -1,7 +1,7 @@
 #pragma once
 #include "UI.h"
-class FPSCounter :
-	public UIElement
+
+class FPSCounter : public UIElement
 {
 private:
 	sf::Text fps_counter;

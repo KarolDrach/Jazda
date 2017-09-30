@@ -8,7 +8,7 @@ void Mob::Draw()
 	Game::Instance().GetMainWindow().draw(outfit);
 }
 
-Mob::Mob(PawnController* controller, float rotation, Vector2D<> position) :
+Mob::Mob(std::shared_ptr<PawnController> controller, float rotation, Vector2D<> position) :
 	Pawn(controller, rotation, position)
 {
 	can_be_picked_up = false;

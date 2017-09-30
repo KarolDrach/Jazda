@@ -2,9 +2,11 @@
 #include <iostream>
 #include <vector>
 
-std::vector<Actor*> Level::GetActorsInDistanceFromPoint(Vector2D<> point, float distance)
+typedef std::shared_ptr<Actor> actSmartPtr;
+
+std::vector<actSmartPtr> Level::GetActorsInDistanceFromPoint(Vector2D<> point, float distance)
 {
-	std::vector<Actor*> result;
+	std::vector<actSmartPtr> result;
 	for (auto& actor : all_actors)
 	{
 		if (actor->GetPosition().CalculateDistance(point) <= distance)
@@ -16,9 +18,9 @@ std::vector<Actor*> Level::GetActorsInDistanceFromPoint(Vector2D<> point, float 
 	return result;
 }
 
-std::vector<Actor*> Level::GetActorsInDistanceFromActor(Actor * actor, float distance)
+std::vector<actSmartPtr> Level::GetActorsInDistanceFromActor(actSmartPtr actor, float distance)
 {
-	std::vector<Actor*> result;
+	std::vector<actSmartPtr> result;
 	auto position = actor->GetPosition();
 
 	for (auto& a : all_actors)
@@ -32,10 +34,10 @@ std::vector<Actor*> Level::GetActorsInDistanceFromActor(Actor * actor, float dis
 	return result;
 }
 
-Actor * Level::GetClosestActorToPoint(Vector2D<> point)
+actSmartPtr Level::GetClosestActorToPoint(Vector2D<> point)
 {
 	auto min_dist = 9999999999.0;
-	Actor* closest;
+	actSmartPtr closest;
 	for (auto& actor : all_actors)
 	{
 		if (actor->GetPosition().CalculateDistance(point) <= min_dist)
@@ -46,11 +48,11 @@ Actor * Level::GetClosestActorToPoint(Vector2D<> point)
 	return closest;
 }
 
-Actor * Level::GetClosestActorToActor(Actor * actor)
+actSmartPtr Level::GetClosestActorToActor(actSmartPtr actor)
 {
 	auto min_dist = 9999999999.0;
 	auto position = actor->GetPosition();
-	Actor* closest = nullptr;
+	actSmartPtr closest = nullptr;
 
 	for (auto& a : all_actors)
 	{
@@ -62,23 +64,23 @@ Actor * Level::GetClosestActorToActor(Actor * actor)
 	return closest;
 }
 
-void Level::AddActor(Actor* actor)
+void Level::AddActor(actSmartPtr actor)
 {
 	if (actor)
 	{
 		if (!Exist(actor))
 		{
-			std::cout << "DODALEM" << std::endl;
+			std::cout << "DODALEM ACTORA DO LEVELU Level::AddActor(...)\n" << std::endl;
 			(this->all_actors).push_back(actor);		
 		}
 		else
 		{
-			std::cout << "NIE DODA" << std::endl;
+			std::cout << "NIE DODALEM\n " << std::endl;
 		}
 	}
 }
 
-void Level::RemoveActor(Actor* actor)
+void Level::RemoveActor(actSmartPtr actor)
 {
 	if (Exist(actor))
 	{
@@ -90,7 +92,7 @@ void Level::RemoveActor(Actor* actor)
 	}
 }
 
-bool Level::Exist(Actor* actor) const
+bool Level::Exist(actSmartPtr actor) const
 {
 	if (actor)
 	{
@@ -106,8 +108,8 @@ bool Level::Exist(Actor* actor) const
 
 void Level::ClearAllActors()
 {
-	for (auto actor : all_actors)
-		delete actor;
+	/*for (auto actor : all_actors)
+		all_actors.erase(actor);*/
 }
 
 void Level::UpdateAll(float & frame_time)

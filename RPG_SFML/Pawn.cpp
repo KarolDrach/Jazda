@@ -1,18 +1,24 @@
+#include <memory>
+#include <iostream>
 #include "Pawn.h"
 #include "PawnController.h"
 #include "TextureManager.h"
-#include <memory>
 
-Pawn::Pawn(PawnController* controller, float rotation, Vector2D<> position) :
+Pawn::Pawn(const std::shared_ptr<PawnController>& controller, float rotation, Vector2D<> position) :
 			Actor(rotation, position)
 {
 	direction = LEFT;
 	reload = 0.0;
 
-	if (controller && controller->Possess(this))
+	/*if (controller && controller->Possess(std::enable_shared_from_this<Pawn>::shared_from_this()))
 	{
 		this->controller = controller;
 	}
+*/
+	/*if (controller && controller->Possess(std::make_shared<Pawn>(*this)))
+	{
+		this->controller = controller;
+	}*/
 }
 
 void Pawn::Update(float & frame_time)
@@ -43,6 +49,12 @@ void Pawn::SetOutfit(std::string outfit_name)
 	}
 }
 
+void Pawn::SetController(std::shared_ptr<PawnController> controller)
+{
+	this->controller = controller;
+	this->controller->Possess(std::enable_shared_from_this<Pawn>::shared_from_this());
+}
+
 void Pawn::Move(Vector2D<>& vector)
 {
 	Actor::Move(vector);
@@ -51,8 +63,8 @@ void Pawn::Move(Vector2D<>& vector)
 
 Pawn::~Pawn()
 {
-	if (this->controller)
-		delete controller;
+	/*if (this->controller)
+		delete controller;*/
 }
 
 void Pawn::Draw()

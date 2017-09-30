@@ -1,17 +1,18 @@
 #pragma once
 #include "Pawn.h"
+#include <memory.h>
 
 class ItemTemplate;
 
 class ItemInstanceOnMap : public Pawn
 {
 private:
-	ItemTemplate* item;
+	std::shared_ptr<ItemTemplate> item;
 public:
-	ItemTemplate* GetItemPointer() { return item; }
+	std::shared_ptr<ItemTemplate> GetItemPointer() { return item; }
 	virtual void Draw() override;
-	ItemInstanceOnMap(ItemTemplate* item, PawnController* controller, Vector2D<> position);
-	ItemInstanceOnMap(Actor* actor);
+	ItemInstanceOnMap(std::shared_ptr<ItemTemplate> item, std::shared_ptr<PawnController> controller, Vector2D<> position);
+	ItemInstanceOnMap(std::shared_ptr<Actor> actor);
 	~ItemInstanceOnMap();
 };
 

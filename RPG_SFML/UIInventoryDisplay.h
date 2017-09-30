@@ -1,18 +1,19 @@
 #pragma once
+#include <memory>
 #include "UI.h"
 #include "Character.h"
 
-class UIInventoryDisplay :
-	public UIElement
+class UIInventoryDisplay : public UIElement
 {
 private:
-	Character* controlled_character;
+	sf::Font font;
+	std::shared_ptr<Character> controlled_character;
 public:
-	void SetCharacter(Character* ch) { controlled_character = ch; }
-	Character* GetCharacter() { return controlled_character; }
+	void SetCharacter(std::shared_ptr<Character> ch) { controlled_character = ch; }
+	std::shared_ptr<Character> GetCharacter() { return controlled_character; }
 	virtual void Update(float& frame_time, sf::RenderWindow& main_window) override;
-	UIInventoryDisplay(Character* controlled_character);
-	UIInventoryDisplay(Character* controlled_character, bool updateThis);
+	UIInventoryDisplay(std::shared_ptr<Character> controlled_character);
+	UIInventoryDisplay(std::shared_ptr<Character> controlled_character, bool updateThis);
 	~UIInventoryDisplay();
 };
 

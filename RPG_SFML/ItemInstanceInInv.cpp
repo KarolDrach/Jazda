@@ -2,13 +2,13 @@
 #include "ItemInstanceOnMap.h"
 #include "Actor.h"
 
-ItemInstanceInInv::ItemInstanceInInv(Actor * item)
+ItemInstanceInInv::ItemInstanceInInv(std::shared_ptr<Actor> item)
 {
-	auto test = static_cast<ItemInstanceOnMap*>(item);
-	this->item = test->GetItemPointer();
+	auto test = std::dynamic_pointer_cast<std::shared_ptr<ItemInstanceOnMap>>(item);
+	this->item = (*test)->GetItemPointer();
 }
 
-ItemInstanceInInv::ItemInstanceInInv(ItemInstanceOnMap* item)
+ItemInstanceInInv::ItemInstanceInInv(std::shared_ptr<ItemInstanceOnMap> item)
 {
 	this->item = item->GetItemPointer();
 }

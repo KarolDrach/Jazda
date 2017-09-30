@@ -8,7 +8,7 @@
 void MobController::Update(float & frame_time)
 {
 	auto &actors = Game::Instance().GetCurrentLevel().GetAllActors();
-	Actor* closest_actor = nullptr;
+	std::shared_ptr<Actor> closest_actor = nullptr;
 	float min_distance = 99999.0;
 	
 	for (auto actor : actors)
@@ -38,11 +38,11 @@ void MobController::Update(float & frame_time)
 	}
 }
 
-bool MobController::Possess(Pawn * controlled_pawn)
+bool MobController::Possess(std::shared_ptr<Pawn> controlled_pawn)
 {
 	if (!this->controlled_pawn)
 	{
-		this->controlled_pawn = static_cast<Mob*>(controlled_pawn);
+		this->controlled_pawn = std::static_pointer_cast<Mob>(controlled_pawn);
 		return true;
 	}
 	return false;

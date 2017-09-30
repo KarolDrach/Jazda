@@ -5,10 +5,10 @@ class Character;
 class CharacterController : public PawnController
 {
 private:
-	Character* controlled_pawn;
+	std::shared_ptr<Character> controlled_pawn;
 public:
 	virtual void Update(float &frame_time) override;
-	virtual bool Possess(Pawn* pawn) override;
+	virtual bool Possess(std::shared_ptr<Pawn> pawn) override;
 	virtual inline bool IsPossesed();
 	CharacterController();
 	~CharacterController();

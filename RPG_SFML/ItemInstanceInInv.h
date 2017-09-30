@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 class ItemTemplate;
 class ItemInstanceOnMap;
@@ -7,11 +8,11 @@ class Actor;
 class ItemInstanceInInv
 {
 private:
-	ItemTemplate* item;
+	std::shared_ptr<ItemTemplate> item;
 public:
-	ItemTemplate* GetItem() { return item; }
-	ItemInstanceInInv(Actor* item);
-	ItemInstanceInInv(ItemInstanceOnMap* item);
+	std::shared_ptr<ItemTemplate> GetItem() { return item; }
+	ItemInstanceInInv(std::shared_ptr<Actor> item);
+	ItemInstanceInInv(std::shared_ptr<ItemInstanceOnMap> item);
 	~ItemInstanceInInv();
 };
 

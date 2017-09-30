@@ -1,10 +1,11 @@
 #include "TextureManager.h"
+#include <memory>
 
-sf::Texture* TextureManager::Load(std::string & name, std::string & path)
+std::shared_ptr<sf::Texture> TextureManager::Load(std::string & name, std::string & path)
 {
 	auto &instance = Instance();
 
-	sf::Texture* result = GetTexture(name);
+	std::shared_ptr<sf::Texture> result = GetTexture(name);
 
 	if (result)
 	{
@@ -12,7 +13,7 @@ sf::Texture* TextureManager::Load(std::string & name, std::string & path)
 	}
 	else
 	{
-		result = new sf::Texture;
+		result = std::make_shared<sf::Texture>();
 		result->loadFromFile(path);
 		instance.texture_pack[name] = result;
 	}
@@ -20,7 +21,7 @@ sf::Texture* TextureManager::Load(std::string & name, std::string & path)
 	return result;
 }
 
-sf::Texture* TextureManager::GetTexture(std::string & name)
+std::shared_ptr<sf::Texture> TextureManager::GetTexture(std::string & name)
 {
 	auto &instance = Instance();
 	auto textureIt = instance.texture_pack.find(name);
@@ -33,7 +34,8 @@ sf::Texture* TextureManager::GetTexture(std::string & name)
 
 bool TextureManager::Delete(std::string & name)
 {
-	auto &instance = Instance();
+	/* FUNCTION TO BE DONE*/
+	/*auto &instance = Instance();
 	auto textureIt = instance.texture_pack.find(name);
 
 	if (textureIt == instance.texture_pack.end())
@@ -45,7 +47,7 @@ bool TextureManager::Delete(std::string & name)
 		delete textureIt->second;
 		instance.texture_pack.erase(textureIt);
 		return true;
-	}	
+	}*/	
 }
 
 TextureManager::TextureManager()
@@ -54,6 +56,4 @@ TextureManager::TextureManager()
 
 TextureManager::~TextureManager()
 {
-	for (auto element : texture_pack)
-		delete (element.second);
 }

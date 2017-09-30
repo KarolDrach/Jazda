@@ -17,16 +17,20 @@ void UIInventoryDisplay::Update(float & frame_time, sf::RenderWindow& main_windo
 	}
 }
 
-UIInventoryDisplay::UIInventoryDisplay(Character * controlled_character):
+UIInventoryDisplay::UIInventoryDisplay(std::shared_ptr<Character> controlled_character):
 	controlled_character(controlled_character)
 {
 	updateThis = true;
+	if (!font.loadFromFile(std::string("D://WielkiRPG//RPG_SFML//arial.ttf")))
+		std::cout << "BLAD LADOWANIA CZCIONKI";
 }
 
-UIInventoryDisplay::UIInventoryDisplay(Character * controlled_character, bool updateThis):
+UIInventoryDisplay::UIInventoryDisplay(std::shared_ptr<Character> controlled_character, bool updateThis):
 	UIElement(updateThis),
 	controlled_character(controlled_character)
 {
+	if (!font.loadFromFile(std::string("D://WielkiRPG//RPG_SFML//arial.ttf")))
+		std::cout << "BLAD LADOWANIA CZCIONKI";
 }
 
 UIInventoryDisplay::~UIInventoryDisplay()

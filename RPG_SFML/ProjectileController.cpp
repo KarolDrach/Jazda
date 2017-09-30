@@ -1,6 +1,7 @@
 #include "ProjectileController.h"
 #include "Projectile.h"
 #include "Pawn.h"
+#include <memory>
 #include <cmath>
 
 void ProjectileController::Update(float & frame_time)
@@ -12,11 +13,11 @@ void ProjectileController::Update(float & frame_time)
 	controlled_pawn->Pawn::Move(Vector2D<>(x * frame_time, y * frame_time));
 }
 
-bool ProjectileController::Possess(Pawn * controlled_pawn)
+bool ProjectileController::Possess(std::shared_ptr<Pawn> controlled_pawn)
 {
 	if (!this->controlled_pawn)
 	{
-		this->controlled_pawn = static_cast<Projectile*>(controlled_pawn);
+		this->controlled_pawn = std::static_pointer_cast<Projectile>(controlled_pawn);
 		return true;
 	}
 	return false;

@@ -7,6 +7,8 @@
 #include "Mob.h"
 #include "MobController.h"
 #include "UI.h"
+#include "FPSCounter.h"
+#include "UIInventoryDisplay.h"
 #include "ItemInstanceOnMap.h"
 #include "ItemController.h"
 #include "MultiTool.h"
@@ -41,16 +43,22 @@ void Game::GameLoop()
 	sf::Clock GameClock;
 	float frame_time = 1.0f / 60.0f;
 	main_status = RUN;
-	auto test2 = new Character(new CharacterController, 0.0, Vector2D<>(190.0, 800.0));
+	auto test2 = std::make_shared<Character>(std::make_shared<CharacterController>(), 
+											 0.0, Vector2D<>(190.0, 800.0));
+
+	test2->SetController(std::make_shared<CharacterController>());
 	current_level.AddActor(test2);
 		
 	//auto test = new Mob(new MobController, 0.0, Vector2D<>(600.0, 600.0));
-	auto item = new ItemInstanceOnMap(ItemsManager::GetItem(std::string("MIECZOR")), new ItemController, Vector2D<>(250.0, 900.0));
+	auto item = std::make_shared<ItemInstanceOnMap>(ItemsManager::GetItem(std::string("MIECZOR")), 
+										            std::make_shared<ItemController>(), Vector2D<>(250.0, 900.0));
 	current_level.AddActor(item);
 	//current_level.AddActor(test);
 
 	UI& ui = UI::Instance();
-	ui.SetCharacter(test2);
+	ui.AddUIElement(std::make_shared<FPSCounter>());
+	ui.AddUIElement(std::make_shared<UIInventoryDisplay>(test2));
+
 	while (main_status != TO_CLOSE)
 	{
 		float start_time = GameClock.getElapsedTime().asSeconds();
@@ -67,9 +75,9 @@ void Game::GameLoop()
 				main_window.setView(sf::View(visibleArea));
 			}
 		}
-		//std::cout << current_level.GetAllActors().size();
+		//std::cout << "ILOSC AKTOROW: " << current_level.GetAllActors().size() << "\n";
 		main_window.clear();
-		main_view.setCenter(test2->GetPosition().GetFirst(), test2->GetPosition().GetSecond());
+		//main_view.setCenter(test2->GetPosition().GetFirst(), test2->GetPosition().GetSecond());
 		ui.Update(frame_time, main_window, main_view);
 		current_level.UpdateAll(frame_time);
 		current_level.DrawAll(frame_time);	
