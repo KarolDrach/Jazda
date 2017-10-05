@@ -131,8 +131,6 @@ void Level::UpdateAll(float & frame_time)
 		else
 			iter++;
 	}
-	
-	//std::cout << "E " << cnt << std::endl;
 }
 
 void Level::DrawAll(float & frame_time) const
@@ -146,6 +144,7 @@ void Level::DrawAll(float & frame_time) const
 
 Level::Level()
 {
+	this->all_actors.reserve(100);
 }
 
 Level::~Level()

@@ -4,21 +4,11 @@
 #include "PawnController.h"
 #include "TextureManager.h"
 
-Pawn::Pawn(const std::shared_ptr<PawnController>& controller, float rotation, Vector2D<> position) :
+Pawn::Pawn(float rotation, Vector2D<> position) :
 			Actor(rotation, position)
 {
 	direction = LEFT;
 	reload = 0.0;
-
-	/*if (controller && controller->Possess(std::enable_shared_from_this<Pawn>::shared_from_this()))
-	{
-		this->controller = controller;
-	}
-*/
-	/*if (controller && controller->Possess(std::make_shared<Pawn>(*this)))
-	{
-		this->controller = controller;
-	}*/
 }
 
 void Pawn::Update(float & frame_time)

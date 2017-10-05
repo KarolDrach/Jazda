@@ -15,7 +15,6 @@ protected:
 	sf::Sprite outfit;
 public:
 	float reload;
-
 	void Move(Vector2D<> &vector);
 	inline virtual void SetPosition(Vector2D<> &position) override;
 	inline void SetDirection(ActorDirection direction) { this->direction = direction; }
@@ -26,7 +25,7 @@ public:
 	PawnController& GetPawnController() { return *controller; }
 	ActorDirection GetDirection() { return direction; }
 	explicit Pawn();
-	explicit Pawn(const std::shared_ptr<PawnController>& controller, float rotation, Vector2D<> position);
+	explicit Pawn(float rotation, Vector2D<> position);
 	virtual void Update(float &frame_time) override;
 	virtual void Draw() override;
 	virtual ~Pawn() override;

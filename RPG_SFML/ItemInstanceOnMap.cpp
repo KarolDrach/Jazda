@@ -11,9 +11,8 @@ void ItemInstanceOnMap::Draw()
 }
 
 ItemInstanceOnMap::ItemInstanceOnMap(std::shared_ptr<ItemTemplate> item, 
-									 std::shared_ptr<PawnController> controller, 
 									 Vector2D<> position) :
-	Pawn(controller, 0.0, position)
+	Pawn(0.0, position)
 {
 	can_be_picked_up = true;
 	this->item = item;

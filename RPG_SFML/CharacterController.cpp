@@ -18,7 +18,6 @@ void CharacterController::Update(float & frame_time)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		std::cout << "W " << controlled_pawn->GetMovementSpeed() << "\n";
 		if (controlled_pawn->GetDirection() != UP)
 		{
 			controlled_pawn->SetDirection(UP);
@@ -59,7 +58,7 @@ void CharacterController::Update(float & frame_time)
 		auto to_pick_up = Game::Instance().GetCurrentLevel().GetClosestActorToActor(this->controlled_pawn);
 		if (to_pick_up)
 		{
-			to_pick_up = std::dynamic_pointer_cast<Pawn>(to_pick_up);
+			to_pick_up = std::static_pointer_cast<Pawn>(to_pick_up);
 
 			if (to_pick_up->CanBePickedUp())
 			{
@@ -80,8 +79,9 @@ void CharacterController::Update(float & frame_time)
 
 		float rotation = this->controlled_pawn->GetPosition().CalculateAngleRad(cursor_pos_final);
 
-		Game::Instance().GetCurrentLevel().AddActor(std::make_shared<Projectile>(std::make_shared<ProjectileController>(), 
-													rotation, Vector2D<>(x, y)));
+		auto projectile = std::make_shared<Projectile>(rotation, Vector2D<>(x, y));
+		projectile->SetController(std::make_shared<ProjectileController>());
+		Game::Instance().GetCurrentLevel().AddActor(projectile);
 		controlled_pawn->reload = 0.05;
 	}
 }

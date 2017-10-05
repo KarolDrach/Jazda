@@ -9,7 +9,7 @@ class Character : public Pawn
 public:
 	Inventory& GetInventory() { return inventory; }
 	virtual void Draw() override;
-	Character(const std::shared_ptr<PawnController>& controller, float rotation, Vector2D<> position);
+	Character(float rotation, Vector2D<> position);
 	~Character();
 	friend class CharacterController;
 };
