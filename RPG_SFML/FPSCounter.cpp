@@ -26,7 +26,7 @@ FPSCounter::FPSCounter()
 		std::cout << "BLAD LADOWANIA CZCIONKI";
 
 	fps_counter.setFont(font);
-	fps_counter.setPosition(-430, 0);
+	fps_counter.setPosition(35, 25);
 	fps_counter.setFillColor(sf::Color::Magenta);
 	fps_counter.setCharacterSize(20);
 

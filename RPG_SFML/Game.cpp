@@ -46,9 +46,10 @@ void Game::GameLoop()
 	main_status = RUN;
 	auto test2 = std::make_shared<Character>(0.0, Vector2D<>(190.0, 800.0));
 	auto item = std::make_shared<ItemInstanceOnMap>(ItemsManager::GetItem(std::string("MIECZOR")), Vector2D<>(250.0, 900.0));
-
+	auto item2 = std::make_shared<ItemInstanceOnMap>(ItemsManager::GetItem(std::string("MIECZOR")), Vector2D<>(250.0, 900.0));
 	test2->SetController(std::make_shared<CharacterController>());
 	current_level.AddActor(test2);
+	current_level.AddActor(item2);
 		
 	item->SetController(std::make_shared<ItemController>());
 	current_level.AddActor(item);

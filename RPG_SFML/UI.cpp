@@ -20,6 +20,7 @@ void UI::Update(float & frame_time, sf::RenderWindow& main_window, sf::View & pr
 UI::UI()
 {
 	this->interface_view = sf::View();
+	this->interface_view.setCenter(1920.0 / 2.0, 1080.0 / 2.0);
 	this->interface_view.setSize(1920, 1080);
 }
 

@@ -5,17 +5,20 @@
 
 void UIInventoryDisplay::Update(float & frame_time, sf::RenderWindow& main_window)
 {
-	auto items = controlled_character->GetInventory().GetAllItems();
-
+	auto& items = controlled_character->GetInventory().GetAllItems();
 	main_window.draw(background);
-	for (auto&i : items)
+	for (auto& i : items)
 	{
-		sf::Text text;
-		text.setFont(font);
-		text.setPosition(-400, 700);
-		text.setFillColor(sf::Color::Green);
-		text.setString((i.GetItem())->GetName());
-		main_window.draw(text);
+		auto txture = TextureManager::GetTexture(i.second.GetItem()->GetOutfitID());
+		sf::Sprite sprite;
+		if (txture)
+		{
+			auto x = top_left_pos.GetFirst() + (i.first % 5) * 35.0;
+			auto y = top_left_pos.GetSecond() + ((i.first / 5) + 1.0) * 35.0;
+			sprite.setTexture(*txture);
+			sprite.setPosition(x, y);
+			main_window.draw(sprite);
+		}
 	}
 }
 
@@ -26,7 +29,7 @@ UIInventoryDisplay::UIInventoryDisplay(std::shared_ptr<Character> controlled_cha
 	if (!font.loadFromFile(std::string("D://WielkiRPG//RPG_SFML//arial.ttf")))
 		std::cout << "BLAD LADOWANIA CZCIONKI";
 
-	top_left_pos = Vector2D<>(1300, 500);
+	top_left_pos = Vector2D<>(1700, 400);
 	auto texture_to_load = TextureManager::GetTexture(std::string("EQ_BACKGROUND"));
 	if (texture_to_load != nullptr)
 	{

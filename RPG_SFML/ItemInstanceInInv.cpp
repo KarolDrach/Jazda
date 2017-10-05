@@ -28,6 +28,10 @@ ItemInstanceInInv::ItemInstanceInInv(std::shared_ptr<ItemInstanceOnMap> item)
 	}
 }
 
+ItemInstanceInInv::ItemInstanceInInv()
+{
+}
+
 ItemInstanceInInv::~ItemInstanceInInv()
 {
 }
