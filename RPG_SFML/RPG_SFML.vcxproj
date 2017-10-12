@@ -163,6 +163,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemController.cpp" />
+    <ClCompile Include="ItemInfo.cpp" />
     <ClCompile Include="ItemInstanceInInv.cpp" />
     <ClCompile Include="ItemInstanceOnMap.cpp" />
     <ClCompile Include="ItemsManager.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="Game_Status.h" />
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemController.h" />
+    <ClInclude Include="ItemInfo.h" />
     <ClInclude Include="ItemInstanceInInv.h" />
     <ClInclude Include="ItemInstanceOnMap.h" />
     <ClInclude Include="ItemsManager.h" />

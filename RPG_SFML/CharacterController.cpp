@@ -90,12 +90,7 @@ bool CharacterController::Possess(std::shared_ptr<Pawn> controlled_pawn)
 {	
 	if (!this->controlled_pawn)
 	{
-		std::cout << "PASS CHARACTER ";
 		this->controlled_pawn = std::static_pointer_cast<Character>(controlled_pawn);
-		if (this->controlled_pawn)
-		{
-			std::cout << "PASS2 CHARACTER ";
-		}
 		return true;
 	}
 	return false;

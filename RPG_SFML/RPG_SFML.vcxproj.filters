@@ -117,6 +117,9 @@
     <ClCompile Include="ItemInstanceOnMap.cpp">
       <Filter>Source Files\Actors</Filter>
     </ClCompile>
+    <ClCompile Include="ItemInfo.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="Vector2D.h">
       <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemInfo.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

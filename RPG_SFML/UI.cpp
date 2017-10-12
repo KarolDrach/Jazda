@@ -10,8 +10,10 @@
 void UI::Update(float & frame_time, sf::RenderWindow& main_window, sf::View & previous_view)
 {
 	main_window.setView(interface_view);
+	auto it = UIElements.begin();
 	for (auto& el : UIElements)
 	{
+		el->GetToRemove() ? it = UIElements.erase(it) : it++;
 		el->Update(frame_time, main_window);
 	}
 	main_window.setView(previous_view);

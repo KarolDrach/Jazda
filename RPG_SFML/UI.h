@@ -32,9 +32,13 @@ class UIElement
 {
 protected:
 	bool updateThis;
+	bool toRemove;
 public:
 	UIElement(bool updateThis);
 	UIElement();
 	void SetUpdateThis(bool updateThis) { this->updateThis = updateThis; }
+	auto GetUpdateThis() { return updateThis; }
+	void SetToRemove(bool remove) { this->toRemove = remove; }
+	auto GetToRemove() { return toRemove; }
 	virtual void Update(float& frame_time, sf::RenderWindow& main_window) = 0;
 };

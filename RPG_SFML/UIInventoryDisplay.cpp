@@ -1,6 +1,7 @@
 #include "UIInventoryDisplay.h"
 #include "ItemInstanceInInv.h"
 #include "ItemTemplate.h"
+#include "ItemInfo.h"
 #include "TextureManager.h"
 
 void UIInventoryDisplay::Update(float & frame_time, sf::RenderWindow& main_window)
@@ -18,6 +19,15 @@ void UIInventoryDisplay::Update(float & frame_time, sf::RenderWindow& main_windo
 			sprite.setTexture(*txture);
 			sprite.setPosition(x, y);
 			main_window.draw(sprite);
+			auto rect = sf::FloatRect(x, y, 35.0, 35.0);
+			
+			if (MultiTool::IsMouseInRect(rect))
+			{
+				auto&& ref = std::make_shared<ItemInfo>();
+				UI::Instance().AddUIElement(ref);
+				ref->SetItem(i.second.GetItem());
+
+			}
 		}
 	}
 }
@@ -26,6 +36,7 @@ UIInventoryDisplay::UIInventoryDisplay(std::shared_ptr<Character> controlled_cha
 	UIElement(updateThis),
 	controlled_character(controlled_character)
 {
+	toRemove = false;
 	if (!font.loadFromFile(std::string("D://WielkiRPG//RPG_SFML//arial.ttf")))
 		std::cout << "BLAD LADOWANIA CZCIONKI";
 

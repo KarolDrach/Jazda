@@ -8,9 +8,11 @@
 
 namespace MultiTool
 {
-	using my_variant = std::variant<std::string, float>;
 	std::string FloatToString(float input);
+
 	float StringToFloat(std::string input);
+
+	bool IsMouseInRect(sf::FloatRect rect);
 
 	template<typename T>
 	std::vector<T> LoadFromFileAsVector(std::string path)
