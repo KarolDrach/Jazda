@@ -120,6 +120,9 @@
     <ClCompile Include="ItemInfo.cpp">
       <Filter>Source Files\UI</Filter>
     </ClCompile>
+    <ClCompile Include="UnitTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -196,6 +199,9 @@
     </ClInclude>
     <ClInclude Include="ItemInfo.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitTests.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

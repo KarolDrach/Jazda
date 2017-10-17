@@ -2,6 +2,9 @@
 #include <string>
 #include <iostream>
 #include "UI.h"
+#include "FPSCounter.h"
+#include "ItemInfo.h"
+#include "UIInventoryDisplay.h"
 #include "Character.h"
 #include "ItemInstanceInInv.h"
 #include "MultiTool.h"
@@ -10,6 +13,9 @@
 void UI::Update(float & frame_time, sf::RenderWindow& main_window, sf::View & previous_view)
 {
 	main_window.setView(interface_view);
+	UIInventoryDisplay::Instance().Update(frame_time, main_window);
+	FPSCounter::Instance().Update(frame_time, main_window);
+	ItemInfo::Instance().Update(frame_time, main_window);
 	auto it = UIElements.begin();
 	for (auto& el : UIElements)
 	{

@@ -3,7 +3,6 @@
 #include <vector>
 #include <memory>
 
-extern class sf::Text;
 class Character;
 class UIElement;
 

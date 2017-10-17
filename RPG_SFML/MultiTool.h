@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -13,6 +14,8 @@ namespace MultiTool
 	float StringToFloat(std::string input);
 
 	bool IsMouseInRect(sf::FloatRect rect);
+
+	bool IsMouseOverSprite(sf::Sprite& sprite);
 
 	template<typename T>
 	std::vector<T> LoadFromFileAsVector(std::string path)

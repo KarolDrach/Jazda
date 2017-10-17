@@ -1,6 +1,7 @@
 #include "UIInventoryDisplay.h"
 #include "ItemInstanceInInv.h"
 #include "ItemTemplate.h"
+#include "UnitTests.h"
 #include "ItemInfo.h"
 #include "TextureManager.h"
 
@@ -19,22 +20,30 @@ void UIInventoryDisplay::Update(float & frame_time, sf::RenderWindow& main_windo
 			sprite.setTexture(*txture);
 			sprite.setPosition(x, y);
 			main_window.draw(sprite);
-			auto rect = sf::FloatRect(x, y, 35.0, 35.0);
-			
-			if (MultiTool::IsMouseInRect(rect))
+			std::cout << sprite.getGlobalBounds().left <<
+				sprite.getGlobalBounds().top <<
+				sprite.getGlobalBounds().width <<
+				sprite.getGlobalBounds().height << "\n";
+			if (MultiTool::IsMouseOverSprite(sprite))
 			{
-				auto&& ref = std::make_shared<ItemInfo>();
-				UI::Instance().AddUIElement(ref);
-				ref->SetItem(i.second.GetItem());
-
+				if (!ItemInfo::Instance().GetUpdateThis())
+				{
+					std::cout << "TRUE\n";
+					ItemInfo::Instance().SetTopLeftPos(Vector2D<>(x + 15.0, y + 15.0));
+					ItemInfo::Instance().SetUpdateThis(true);
+					ItemInfo::Instance().SetItem(i.second.GetItem());
+				}			
+			}
+			else
+			{
+				std::cout << "FALSE\n";
+				ItemInfo::Instance().SetUpdateThis(false);
 			}
 		}
 	}
 }
 
-UIInventoryDisplay::UIInventoryDisplay(std::shared_ptr<Character> controlled_character, bool updateThis = true):
-	UIElement(updateThis),
-	controlled_character(controlled_character)
+UIInventoryDisplay::UIInventoryDisplay()
 {
 	toRemove = false;
 	if (!font.loadFromFile(std::string("D://WielkiRPG//RPG_SFML//arial.ttf")))
@@ -44,11 +53,16 @@ UIInventoryDisplay::UIInventoryDisplay(std::shared_ptr<Character> controlled_cha
 	auto texture_to_load = TextureManager::GetTexture(std::string("EQ_BACKGROUND"));
 	if (texture_to_load != nullptr)
 	{
+		UnitTests::PrintConsolePassed("UIInventoryDisplay loading background texture OK");
 		background.setTexture(*texture_to_load);
 		auto x = texture_to_load->getSize().x;
 		auto y = texture_to_load->getSize().y;
 		background.setOrigin(0, 0);
 		background.setPosition(top_left_pos.GetFirst(), top_left_pos.GetSecond());
+	}
+	else
+	{
+		UnitTests::PrintConsoleFailed("UIInventoryDisplay loading background texture failed");
 	}
 }
 

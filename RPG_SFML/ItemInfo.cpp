@@ -1,5 +1,6 @@
 #include "ItemInfo.h"
 #include "TextureManager.h"
+#include "UnitTests.h"
 
 void ItemInfo::Update(float & frame_time, sf::RenderWindow & main_window)
 {
@@ -20,11 +21,16 @@ ItemInfo::ItemInfo()
 	auto texture_to_load = TextureManager::GetTexture(std::string("ITEM_INFO_BACKGROUND"));
 	if (texture_to_load != nullptr)
 	{
+		UnitTests::PrintConsolePassed("ItemInfo loading background texture ok");
 		background.setTexture(*texture_to_load);
 		auto x = texture_to_load->getSize().x;
 		auto y = texture_to_load->getSize().y;
 		background.setOrigin(0, 0);
 		background.setPosition(top_left_pos.GetFirst(), top_left_pos.GetSecond());
+	}
+	else
+	{
+		UnitTests::PrintConsoleFailed("ItemInfo loading background texture");
 	}
 }
 

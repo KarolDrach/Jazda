@@ -29,6 +29,7 @@ Game::Game(): main_window(sf::VideoMode(1920, 1080), "SFML works!"),
 	TextureManager::Instance().Load(std::string("FIREBALL"), std::string("D://textures//fireball.png"));
 	TextureManager::Instance().Load(std::string("ITEM_TEST"), std::string("D://textures//item.png"));
 	TextureManager::Instance().Load(std::string("EQ_BACKGROUND"), std::string("D://textures//eq_bgr.png"));
+	TextureManager::Instance().Load(std::string("ITEM_INFO_BACKGROUND"), std::string("D://textures//item_info_bgr.png"));
 }
 
 Game::~Game()
@@ -53,11 +54,9 @@ void Game::GameLoop()
 		
 	item->SetController(std::make_shared<ItemController>());
 	current_level.AddActor(item);
-	//current_level.AddActor(test);
 
 	UI& ui = UI::Instance();
-	ui.AddUIElement(std::make_shared<FPSCounter>());
-	ui.AddUIElement(std::make_shared<UIInventoryDisplay>(test2, true));
+	UIInventoryDisplay::Instance().SetCharacter(test2);
 
 	while (main_status != TO_CLOSE)
 	{
@@ -75,7 +74,6 @@ void Game::GameLoop()
 				main_window.setView(sf::View(visibleArea));
 			}
 		}
-		//std::cout << "ILOSC AKTOROW: " << current_level.GetAllActors().size() << "\n";
 		main_window.clear();
 		main_view.setCenter(test2->GetPosition().GetFirst(), test2->GetPosition().GetSecond());
 		current_level.UpdateAll(frame_time);

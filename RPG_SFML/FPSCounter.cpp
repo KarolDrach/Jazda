@@ -1,4 +1,5 @@
 #include "FPSCounter.h"
+#include "UnitTests.h"
 #include "MultiTool.h"
 #include <iostream>
 
@@ -23,7 +24,9 @@ FPSCounter::FPSCounter()
 {
 	this->updateThis = true;
 	if (!font.loadFromFile(std::string("D://WielkiRPG//RPG_SFML//arial.ttf")))
-		std::cout << "BLAD LADOWANIA CZCIONKI";
+		UnitTests::PrintConsoleFailed("loading font for FPSCounter member 'font'");
+	else
+		UnitTests::PrintConsolePassed("loading font for FPSCounter member 'font'");
 
 	fps_counter.setFont(font);
 	fps_counter.setPosition(35, 25);

@@ -18,7 +18,7 @@ public:
 	void operator=(const ItemInfo &) = delete;
 	static inline ItemInfo& Instance()
 	{
-		ItemInfo instance;
+		static ItemInfo instance;
 		return instance;
 	}
 	virtual void Update(float& frame_time, sf::RenderWindow& main_window) override;
