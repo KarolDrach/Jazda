@@ -14,7 +14,6 @@ protected:
 	std::shared_ptr<PawnController> controller;
 	sf::Sprite outfit;
 public:
-	float reload;
 	void Move(Vector2D<> &vector);
 	inline virtual void SetPosition(Vector2D<> &position) override;
 	inline void SetDirection(ActorDirection direction) { this->direction = direction; }

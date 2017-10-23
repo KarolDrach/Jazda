@@ -6,7 +6,6 @@
 
 void ItemInstanceOnMap::Draw()
 {
-	//std::cout << "TEST " << this->item->GetOutfitID() << "\n";
 	Game::Instance().GetMainWindow().draw(outfit);
 }
 

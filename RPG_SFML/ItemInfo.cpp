@@ -8,7 +8,12 @@ void ItemInfo::Update(float & frame_time, sf::RenderWindow & main_window)
 	{
 		background.setPosition(top_left_pos.GetFirst(), top_left_pos.GetSecond());
 		main_window.draw(background);
-		(*controlled_item).GetName();
+		sf::Text text;
+		text.setFont(font);
+		text.setFillColor(sf::Color::Yellow);
+		text.setString(controlled_item->GetName());
+		text.setPosition(top_left_pos.GetFirst() + 20.0, top_left_pos.GetSecond() + 20.0);
+		main_window.draw(text);
 	}
 }
 

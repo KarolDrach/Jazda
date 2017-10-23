@@ -52,7 +52,7 @@ void CharacterController::Update(float & frame_time)
 		}
 		controlled_pawn->Pawn::Move(Vector2D<>(movement_speed * frame_time, 0.0));
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && controlled_pawn->picking_items_reload <= 0.0)
 	{
 		auto point = controlled_pawn->GetPosition();
 		auto to_pick_up = Game::Instance().GetCurrentLevel().GetClosestActorToActor(this->controlled_pawn);
@@ -62,12 +62,13 @@ void CharacterController::Update(float & frame_time)
 
 			if (to_pick_up->CanBePickedUp())
 			{
-				controlled_pawn->GetInventory().AddItemToInventory(ItemInstanceInInv(to_pick_up));
-				Game::Instance().GetCurrentLevel().RemoveActor(to_pick_up);
+				if(controlled_pawn->GetInventory().AddItemToInventory(ItemInstanceInInv(to_pick_up)))
+					Game::Instance().GetCurrentLevel().RemoveActor(to_pick_up);
 			}
+			controlled_pawn->picking_items_reload = controlled_pawn->picking_items_delay;
 		}
 	}
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && controlled_pawn->reload <= 0.0)
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && controlled_pawn->fire_rate_reload <= 0.0)
 	{
 		auto x = controlled_pawn->GetPosition().GetFirst();
 		auto y = controlled_pawn->GetPosition().GetSecond();
@@ -82,8 +83,14 @@ void CharacterController::Update(float & frame_time)
 		auto projectile = std::make_shared<Projectile>(rotation, Vector2D<>(x, y));
 		projectile->SetController(std::make_shared<ProjectileController>());
 		Game::Instance().GetCurrentLevel().AddActor(projectile);
-		controlled_pawn->reload = 0.05;
+		controlled_pawn->fire_rate_reload = controlled_pawn->fire_rate_delay;
 	}
+
+	if (controlled_pawn->fire_rate_reload > 0)
+		controlled_pawn->fire_rate_reload -= frame_time;
+
+	if (controlled_pawn->picking_items_reload > 0)
+		controlled_pawn->picking_items_reload -= frame_time;
 }
 
 bool CharacterController::Possess(std::shared_ptr<Pawn> controlled_pawn)
@@ -102,8 +109,7 @@ inline bool CharacterController::IsPossesed()
 }
 
 CharacterController::CharacterController()
-{
-	//this->controlled_pawn = static_cast<Character*>(PawnController::controlled_pawn);	
+{	
 }
 
 CharacterController::~CharacterController()

@@ -11,35 +11,33 @@ void UIInventoryDisplay::Update(float & frame_time, sf::RenderWindow& main_windo
 	main_window.draw(background);
 	for (auto& i : items)
 	{
-		auto txture = TextureManager::GetTexture(i.second.GetItem()->GetOutfitID());
-		sf::Sprite sprite;
-		if (txture)
+		if (i.second.GetItem() != nullptr)
 		{
-			auto x = top_left_pos.GetFirst() + (i.first % 5) * 35.0;
-			auto y = top_left_pos.GetSecond() + ((i.first / 5) + 1.0) * 35.0;
-			sprite.setTexture(*txture);
-			sprite.setPosition(x, y);
-			main_window.draw(sprite);
-			std::cout << sprite.getGlobalBounds().left <<
-				sprite.getGlobalBounds().top <<
-				sprite.getGlobalBounds().width <<
-				sprite.getGlobalBounds().height << "\n";
-			if (MultiTool::IsMouseOverSprite(sprite))
+			auto texture_to_load = TextureManager::GetTexture(i.second.GetItem()->GetOutfitID());
+			if (texture_to_load)
 			{
-				if (!ItemInfo::Instance().GetUpdateThis())
+				sf::Sprite sprite;
+				auto x = top_left_pos.GetFirst() + (i.first % 5) * 35.0;
+				auto y = top_left_pos.GetSecond() + ((i.first / 5) + 1.0) * 35.0;
+				sprite.setTexture(*texture_to_load);
+				sprite.setPosition(x, y);
+				main_window.draw(sprite);
+
+				if (MultiTool::IsMouseOverSprite(sprite))
 				{
-					std::cout << "TRUE\n";
-					ItemInfo::Instance().SetTopLeftPos(Vector2D<>(x + 15.0, y + 15.0));
-					ItemInfo::Instance().SetUpdateThis(true);
-					ItemInfo::Instance().SetItem(i.second.GetItem());
-				}			
+					if (!ItemInfo::Instance().GetUpdateThis())
+					{
+						ItemInfo::Instance().SetTopLeftPos(Vector2D<>(x + 15.0, y + 15.0));
+						ItemInfo::Instance().SetUpdateThis(true);
+						ItemInfo::Instance().SetItem(i.second.GetItem());
+					}
+				}
+				else
+				{
+					ItemInfo::Instance().SetUpdateThis(false);
+				}
 			}
-			else
-			{
-				std::cout << "FALSE\n";
-				ItemInfo::Instance().SetUpdateThis(false);
-			}
-		}
+		}		
 	}
 }
 
@@ -47,9 +45,11 @@ UIInventoryDisplay::UIInventoryDisplay()
 {
 	toRemove = false;
 	if (!font.loadFromFile(std::string("D://WielkiRPG//RPG_SFML//arial.ttf")))
-		std::cout << "BLAD LADOWANIA CZCIONKI";
+		UnitTests::PrintConsoleFailed("UIInventoryDisplay loading font bad");
+	else
+		UnitTests::PrintConsolePassed("UIInventoryDisplay loading font OK");
 
-	top_left_pos = Vector2D<>(1700, 400);
+	top_left_pos = Vector2D<>(1600, 400);
 	auto texture_to_load = TextureManager::GetTexture(std::string("EQ_BACKGROUND"));
 	if (texture_to_load != nullptr)
 	{

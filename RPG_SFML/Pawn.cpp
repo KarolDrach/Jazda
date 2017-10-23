@@ -8,14 +8,11 @@ Pawn::Pawn(float rotation, Vector2D<> position) :
 			Actor(rotation, position)
 {
 	direction = LEFT;
-	reload = 0.0;
+	can_be_picked_up = false;
 }
 
 void Pawn::Update(float & frame_time)
 {
-	if (reload > 0)
-		reload -= frame_time;
-
 	if (this->controller)
 		(this->controller)->Update(frame_time);
 }
@@ -63,6 +60,7 @@ void Pawn::Draw()
 
 Pawn::Pawn()
 {
+	can_be_picked_up = false;
 }
 
 

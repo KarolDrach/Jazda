@@ -46,15 +46,18 @@ void Game::GameLoop()
 	float frame_time = 1.0f / 60.0f;
 	main_status = RUN;
 	auto test2 = std::make_shared<Character>(0.0, Vector2D<>(190.0, 800.0));
-	auto item = std::make_shared<ItemInstanceOnMap>(ItemsManager::GetItem(std::string("MIECZOR")), Vector2D<>(250.0, 900.0));
-	auto item2 = std::make_shared<ItemInstanceOnMap>(ItemsManager::GetItem(std::string("MIECZOR")), Vector2D<>(250.0, 900.0));
-	test2->SetController(std::make_shared<CharacterController>());
+	for (int i = 1; i < 10; i++)
+	{	
+		auto item = std::make_shared<ItemInstanceOnMap>(ItemsManager::GetItem(std::string("MIECZOR")), Vector2D<>(250.0 + i * 15.0, 900.0));
+		auto item2 = std::make_shared<ItemInstanceOnMap>(ItemsManager::GetItem(std::string("MIECZOR")), Vector2D<>(250.0, 900.0 + i * 15.0));
+		current_level.AddActor(item);
+		current_level.AddActor(item2);
+		item->SetController(std::make_shared<ItemController>());
+		item2->SetController(std::make_shared<ItemController>());
+	}
 	current_level.AddActor(test2);
-	current_level.AddActor(item2);
-		
-	item->SetController(std::make_shared<ItemController>());
-	current_level.AddActor(item);
-
+	test2->SetController(std::make_shared<CharacterController>());
+	
 	UI& ui = UI::Instance();
 	UIInventoryDisplay::Instance().SetCharacter(test2);
 
