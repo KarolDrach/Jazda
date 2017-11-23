@@ -1,6 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <variant>
 #include "ItemTemplate.h"
+#include "ItemInstanceInInv.h"
+#include "ItemInstanceOnMap.h"
 #include "Vector2D.h"
 #include "UI.h"
 
@@ -11,7 +14,7 @@ private:
 	sf::Sprite background;
 	sf::Font font;
 	std::shared_ptr<ItemTemplate> controlled_item;
-
+	std::vector<std::variant<ItemInstanceInInv, ItemInstanceOnMap>> controlled_items;
 	ItemInfo();
 public:
 	ItemInfo(const ItemInfo &) = delete;

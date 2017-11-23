@@ -26,11 +26,11 @@ public:
 		return instance;
 	}
 
-	inline std::vector<std::string>& GetNPCAttributesSymbols() { return npc_attributes_symbols; } const
-	inline GameStatus& GetGameStatus() { return main_status; }
-	inline sf::RenderWindow& GetMainWindow() { return main_window; }
-	inline Level& GetCurrentLevel() { return current_level; }
-	inline sf::View& GetMainView() { return main_view; }
+	inline auto& GetNPCAttributesSymbols() { return npc_attributes_symbols; } const
+	inline auto& GetGameStatus() { return main_status; }
+	inline auto& GetMainWindow() { return main_window; }
+	inline auto& GetCurrentLevel() { return current_level; }
+	inline auto& GetMainView() { return main_view; }
 	void GameLoop();
 	friend class PawnController;
 };

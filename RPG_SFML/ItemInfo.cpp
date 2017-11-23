@@ -1,11 +1,33 @@
+#include <vector>
 #include "ItemInfo.h"
+#include "Game.h"
 #include "TextureManager.h"
+#include "UIInventoryDisplay.h"
 #include "UnitTests.h"
 
 void ItemInfo::Update(float & frame_time, sf::RenderWindow & main_window)
 {
-	if (updateThis && controlled_item)
+	auto inv = UIInventoryDisplay::Instance().GetCharacter()->GetInventory();
+	for (auto& item : inv.GetAllItems())
 	{
+		controlled_items.emplace_back(item.second);
+	}
+
+	std::vector<ItemInstanceOnMap> items_on_map(99);
+	for (auto i : Game::Instance().GetCurrentLevel().GetAllActors())
+	{
+		if (auto result = std::dynamic_pointer_cast<std::shared_ptr<ItemInstanceOnMap>>(i))
+		{
+			controlled_items.emplace_back(*result);
+		}
+	}
+
+	if (updateThis /*&& controlled_item*/)
+	{
+		for (auto& i : controlled_items)
+		{
+			auto var = std::get<0>(i);
+		}
 		background.setPosition(top_left_pos.GetFirst(), top_left_pos.GetSecond());
 		main_window.draw(background);
 		sf::Text text;
@@ -19,7 +41,7 @@ void ItemInfo::Update(float & frame_time, sf::RenderWindow & main_window)
 
 ItemInfo::ItemInfo()
 {
-	this->updateThis = false;
+	this->updateThis = true;
 	if (!font.loadFromFile(std::string("D://WielkiRPG//RPG_SFML//arial.ttf")))
 		std::cout << "BLAD LADOWANIA CZCIONKI";
 

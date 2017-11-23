@@ -28,6 +28,11 @@ ItemInstanceInInv::ItemInstanceInInv(std::shared_ptr<ItemInstanceOnMap> item)
 	}
 }
 
+bool ItemInstanceInInv::AddToStack(std::shared_ptr<ItemTemplate>& item)
+{
+	return false;
+}
+
 ItemInstanceInInv::ItemInstanceInInv()
 {
 }

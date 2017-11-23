@@ -10,6 +10,7 @@ void ItemsManager::LoadItemsFromFile(std::string & path)
 	
 	std::fstream input_file;
 	std::string symbol, bonus_value, name, description, outfit_ID;
+	int max_stack_size;
 	std::unordered_map <std::string, float> bonuses;
 	input_file.open(path, std::ios::in);
 
@@ -21,6 +22,7 @@ void ItemsManager::LoadItemsFromFile(std::string & path)
 			{
 				input_file >> name;
 				input_file >> outfit_ID;
+				input_file >> max_stack_size;
 				while (symbol != std::string("ITEM_END"))
 				{
 					if (input_file >> symbol, symbol != std::string("ITEM_END"))
@@ -31,6 +33,7 @@ void ItemsManager::LoadItemsFromFile(std::string & path)
 				}
 
 				instance.item_pack[name] = std::make_shared<ItemTemplate>(bonuses, outfit_ID, name, description);
+				instance.item_pack[name]->SetMaxStackSize(max_stack_size);
 				bonuses = {};
 				description = "";
 				outfit_ID = "";

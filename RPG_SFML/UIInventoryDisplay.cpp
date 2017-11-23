@@ -9,6 +9,7 @@ void UIInventoryDisplay::Update(float & frame_time, sf::RenderWindow& main_windo
 {
 	auto& items = controlled_character->GetInventory().GetAllItems();
 	main_window.draw(background);
+	bool info_set = false;
 	for (auto& i : items)
 	{
 		if (i.second.GetItem() != nullptr)
@@ -25,19 +26,14 @@ void UIInventoryDisplay::Update(float & frame_time, sf::RenderWindow& main_windo
 
 				if (MultiTool::IsMouseOverSprite(sprite))
 				{
-					if (!ItemInfo::Instance().GetUpdateThis())
-					{
-						ItemInfo::Instance().SetTopLeftPos(Vector2D<>(x + 15.0, y + 15.0));
-						ItemInfo::Instance().SetUpdateThis(true);
-						ItemInfo::Instance().SetItem(i.second.GetItem());
-					}
+					i.second.displayInfo = true;
 				}
 				else
 				{
-					ItemInfo::Instance().SetUpdateThis(false);
+					i.second.displayInfo = false;
 				}
 			}
-		}		
+		}
 	}
 }
 

@@ -1,14 +1,14 @@
 #pragma once
 #include <vector>
 #include <optional>
-#include <unordered_map>
+#include <map>
 
 class ItemInstanceInInv;
 
 class Inventory
 {
 private:
-	std::unordered_map<int, ItemInstanceInInv> all_items;
+	std::map<int, ItemInstanceInInv> all_items;
 	int max_capacity;
 public:
 	auto& GetAllItems() { return all_items; }

@@ -1,4 +1,5 @@
 #include <memory>
+#include "Game.h"
 #include "ItemController.h"
 #include "MultiTool.h"
 #include "Pawn.h"
@@ -9,16 +10,11 @@ void ItemController::Update(float & frame_time)
 {
 	if (MultiTool::IsMouseOverSprite(this->controlled_pawn->GetOutfit()))
 	{
-		if (!ItemInfo::Instance().GetUpdateThis())
-		{
-			ItemInfo::Instance().SetTopLeftPos(this->controlled_pawn->GetPosition());
-			ItemInfo::Instance().SetUpdateThis(true);
-			ItemInfo::Instance().SetItem(this->controlled_pawn->GetItemPointer());
-		}
-	}
+		this->controlled_pawn->displayInfo = true;
+	}	
 	else
 	{
-		ItemInfo::Instance().SetUpdateThis(false);
+		this->controlled_pawn->displayInfo = false;
 	}
 }
 

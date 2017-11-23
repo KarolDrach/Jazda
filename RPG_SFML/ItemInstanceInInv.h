@@ -9,11 +9,11 @@ class ItemInstanceInInv
 {
 private:
 	std::shared_ptr<ItemTemplate> item;
-	int position;
+	int stack_size;
 public:
+	bool displayInfo;
 	std::shared_ptr<ItemTemplate> GetItem() { return item; }
-	int GetPosition() { return position; }
-	void SetPosition(int position) { this->position = position; }
+	bool AddToStack(std::shared_ptr<ItemTemplate>& item);
 	ItemInstanceInInv();
 	ItemInstanceInInv(std::shared_ptr<Actor> item);
 	ItemInstanceInInv(std::shared_ptr<ItemInstanceOnMap> item);
